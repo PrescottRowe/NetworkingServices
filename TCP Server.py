@@ -4,33 +4,35 @@
 import socket
 import threading
 
-bind_ip = "0.0.0.0"
+bind_ip = "0.0.0.0" #Server, so 0.0.0.0 is a placeholder for all IPv4 addresses on local machine
 bind_port = 9999
 
-server= socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+#AF_INET: is for ipv4. SOCK_STREAM: sets up for a TCP stream
+TCP_server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-server.bind((bind_ip,bind_port))
+#Bind the TCP server to specified port and ip
+TCP_server.bind((bind_ip,bind_port))
 
-server.listen(5)
+#listens witha set Max backlog of connections
+TCP_server.listen(5)
+print("Service is listening on %s:%d" % (bind_ip, bind_port))
 
-print("[*] Listening on %s:%d" % (bind_ip, bind_port))
-
-#this is or client-handeling thread
+#Thread for client connection
 def handle_client(client_socket):
-    #printn out what the client sends
-    request = client_socket.recv(1024)
+    #prints out data from the client packets
+    client_message = client_socket.recv(1024)
+    print( "Received packets: %s" % client_message)
 
-    print( "[*] Recived: %s" % request)
-
-    #send back a packet
-    client_socket.send("ACK!")
-
-    client_socket.closoe()
+    client_socket.send("ACK!")              #Send out an ACK when received
+    client_socket.shutdown(socket.SHUT_RDWR)# SHUT_RD Stops further receives from happening
+                                            # _WR Stops further sends and _RDWR stops both
+    client_socket.close()                   #Its nice to be nice
 
 while True:
-    cliennt , addr = server.accept()
-    print("[*] Accepted connection from: %s:%d" % (addr[0],addr[1]))
-
-    #spin up our client thread to handle incoming data
-    client_handler = threading.Thread(target=handle_client, args=(client,))
+    client_socket , addr = TCP_server.accept()#now waits for incoming connection
+    print("Connection made from: %s:%d" % (addr[0],addr[1]))
+    #calls to threaded fuction to handle incoming data
+    client_handler = threading.Thread(target=handle_client, args=(client_socket,))
     client_handler.start()
+
+
