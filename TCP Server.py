@@ -1,6 +1,6 @@
 #Prescott Rowe
 #8/25/2018
-#Simple TCP Server, core functionality for a quick and dirty tool that WORKS
+#Simple TCP Server. Core functionality for a quick and dirty tool that WORKS
 import socket
 import threading
 
@@ -22,16 +22,15 @@ def handle_client(client_socket):
     #prints out data from the client packets
     client_message = client_socket.recv(1024)
     print( "Received packets: %s" % client_message)
-
     client_socket.send("ACK!")              #Send out an ACK when received
     client_socket.shutdown(socket.SHUT_RDWR)# SHUT_RD Stops further receives from happening
                                             # _WR Stops further sends and _RDWR stops both
     client_socket.close()                   #Its nice to be nice
 
 while True:
-    client_socket , addr = TCP_server.accept()#now waits for incoming connection
+    client_socket , addr = TCP_server.accept()#now waits for incoming connection and saves client socket and remote connection details into variables
     print("Connection made from: %s:%d" % (addr[0],addr[1]))
-    #calls to threaded fuction to handle incoming data
+    #inserts fuction into thread to handle incoming data, then continues while loop
     client_handler = threading.Thread(target=handle_client, args=(client_socket,))
     client_handler.start()
 
