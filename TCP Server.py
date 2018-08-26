@@ -1,3 +1,6 @@
+#Prescott Rowe
+#8/25/2018
+#Simple TCP Server, core functionality for a quick and dirty tool that WORKS
 import socket
 import threading
 

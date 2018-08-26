@@ -1,3 +1,7 @@
+#Prescott Rowe
+#8/25/2018
+#Simple TCP Client, core functionality for a quick and dirty tool that WORKS
+
 import socket
 
 target_host = "www.url.com"   #"www.url.com"  or IP addr
