@@ -13,20 +13,19 @@ upload_destination = ""
 port = 0
 
 def usage():
-    print("BHP Net Tool")
+    print("________LeatherCat, A Networking Multimeter________")
+    print("How to use:")
     print()
-    print("Usage: bhpnet.py -t target_host -p port")
-    print("-l --listen                -listen on [host]:[port] for incoming connections")
-    print("-e --execute = file_to_run -execute the given file upon receiving a connection.")
-    print("-c --command               -initialize a command shell")
-    print("-u --upload = destination  -upon receiving connection upload a file and write to [destination]")
+    print("LeatherCat.py -t <target_host> -p <port> [options]")
+    print("LeatherCat.py -t 192.168.0.254 -p 54321 -l -e = \"pc /etc/www\"")
+    print("echo 'Much Meow goes here' | ./LeatherCat.py -t 192.168.0.1 -p 4321")
+    print()
+    print("  -l --listen                -Listen for incoming connections on [host]:[port]")
+    print("  -e --execute = your_file   -Executes file after a connection is made (good for adding backdoor functionality).")
+    print("  -c --command               -Start a shell")
+    print("  -u --upload = directory    -Upload and write a file to the destination after the connection is made.")
     print()
 
-    print("Examples: ")
-    print("bhpnet.py -t 192.168.0.1 -p 5555 -l -c")
-    print("bhpnet.py -t 192.168.0.1 -p 5555 -l -u = c;\\target.exe")
-    print("bhpnet.py -t 192.168.0.1 -p 5555 -l -e = \"cat /etc/passwd\"")
-    print("echo 'ABCDEFGHI' | ./bhpnet.py -t 192.168.11.12 -p 135")
     sys.exit(0)
 
 def client_sender(buffer):
@@ -82,7 +81,7 @@ def run_command(command):
     command = command.rstrip()
     #run the command and get the output back
     try:
-        output = subprocess.check_output(command, stderr=subprocess.STDOUT, shhell=True)
+        output = subprocess.check_output(command, stdin=subprocess.STDOUT, shell=True)
     except:
         output = "Failed to execute command.\r\n"
     #send the output back to the client
