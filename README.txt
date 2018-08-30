@@ -1,2 +1,4 @@
 This toolset build is inspired by INetSim and "Black Hat Python".
 This is an active repository that will have many cross platform python networking tools to help with various pentesting attacks and support malware analysis by responding to various server request. As of now all of the tools here work but will be continuously updated to add more features. 
+
+It would be fun to collaborate on makeing a software backdoor with an easy shell interface for localy changing memory values and injecting asm, similar to programs like Cheat Engine but without as much user footwork. This could be extreamly helpful for forcing malware to run functions and give up networking signatures. It would be best to keep the edits client side to prevent its use as an online videogame hack. Send me a message if you would like to help.
