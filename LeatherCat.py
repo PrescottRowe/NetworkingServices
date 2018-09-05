@@ -165,6 +165,6 @@ def main():
         buffer = sys.stdin.read()# CTRL-D will bypass stdin
         client_sender(buffer)
     if listen:
-        server_loop()
+        server_loop() 
 
 main()
