@@ -88,7 +88,7 @@ def client_handler(client_socket):
         output = run_command(execute)
         client_socket.send(output)
 
-    #Command shell was requesteed
+    #Command shell was requesteed 
     if command:
         while True:
             client_socket.send("Hack'n'Slash:#> ")#Our personal shell
